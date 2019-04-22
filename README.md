@@ -32,7 +32,12 @@ Enable the Litespeed in your .htaccess file.
 
 ### Facade
 
-The package registers `\Joostvanveen\Litespeedcache\Cache` as a facade and sets default config values for `enabled`, `type` and `lifetime`.
+The package registers `\Joostvanveen\Litespeedcache\Cache` as a facade and sets default config values for 
+`litespeedcache.defaults.enabled`,
+`litespeedcache.defaults.type`,
+`litespeedcache.defaults.lifetime`,
+`litespeedcache.defaults.excludedUris`,
+and `litespeedcache.defaults.excludedQueryStrings`.
 
 ```php
 use LitespeedCache;
@@ -51,6 +56,7 @@ You can use all methods from `\Joostvanveen\Litespeedcache\Cache`, see [https://
 Some examples:
 ```php
 // Full options example
+// You can also set $excludedUris and $excludedQueryStrings in config.
 $excludedUris = [
     'checkout*',
     'admin*',
@@ -83,6 +89,8 @@ config('litespeedcache.defaults.enabled') // true
 config('litespeedcache.defaults.use_middleware') // true
 config('litespeedcache.defaults.type') // 'public'
 config('litespeedcache.defaults.lifetime') // 240 minutes
+config('litespeedcache.defaults.excludedUris') // Array of URIs that should not be cached, can contain wildcards like '/admin*'
+config('litespeedcache.defaults.excludedQueryStrings') // Array of query strings that should not be cached, can contain wildcards like '*utm_source=*'
 ```
 
 ### Middleware
@@ -91,6 +99,68 @@ By default, the package contains a middleware that caches all pages (except cli,
 You can find this middleware at `src/Middlewares/Cache.php`.
 
 If you want to use your own middleware, you can disable the default middleware by setting the config value `litespeedcache.defaults.use_middleware` to `false`
+
+1. Publish the config settings to your Laravel project.
+```php
+php artisan vendor:publish --provider="Joostvanveen\LaravelLitespeedcache\LitespeedCacheServiceProvider" --tag=config
+```
+
+2. Set `use_middleware` to `false`
+```php
+<?php
+
+return [
+    'defaults' => [
+        'enabled' => true, 
+        'use_middleware' => false, // Set Litespeed Cache Middleware to inactive
+        'type' => 'public', 
+        'lifetime' => 240, 
+    ],
+];
+```
+
+3. Create a middleware class
+```php
+php artisan make:middleware LitespeedCache
+``` 
+
+4. Edit your middleware
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Joostvanveen\LaravelLitespeedcache\Facades\LitespeedCache as LitespeedCacheFacade;
+
+class LitespeedCache
+{
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     *
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        $excludedUris = [
+            'checkout*',
+            'admin*',
+        ];
+        
+        LitespeedCacheFacade::setEnabled(config('litespeedcache.defaults.enabled'))
+                            ->setType(config('litespeedcache.defaults.type'))
+                            ->setLifetime(config('litespeedcache.defaults.lifetime'))
+                            ->setExcludedUrls($excludedUris)
+                            ->cache();
+
+        return $next($request);
+    }
+}
+```
 
 ## joostvanveen/litespeedcache documentation
 

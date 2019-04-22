@@ -26,6 +26,8 @@ class Cache
         Litespeedcache::setEnabled(config('litespeedcache.defaults.enabled'))
                       ->setType(config('litespeedcache.defaults.type'))
                       ->setLifetime(config('litespeedcache.defaults.lifetime'))
+                      ->setExcludedUrls(config('litespeedcache.defaults.excludedUris'))
+                      ->setExcludedQueryStrings(config('litespeedcache.defaults.excludedQueryStrings'))
                       ->cache();
 
         return $next($request);

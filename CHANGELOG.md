@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 2019-04-23
+### Added
+- Added config('litespeedcache.defaults.excludedUris') and config('litespeedcache.defaults.excludedQueryStrings') to config
+
+### Changed
+- Updated README
+
 ## 0.1.1 2019-04-23
 ### Changed
 - Use facade in middleware

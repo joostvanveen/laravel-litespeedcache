@@ -17,6 +17,8 @@ class FeatureTest extends TestCase
                       ->setEnabled(true)
                       ->setType('private')
                       ->setLifetime(60)
+                      ->setExcludedUrls([])
+                      ->setExcludedQueryStrings([])
                       ->cache();
 
         $headers = $this->getHeaders();
