@@ -41,16 +41,32 @@ use LitespeedCache;
 
 // Cache use all default settings from config.
 LitespeedCache::cache();
+
+// Purge the cache
+LitespeedCache::purge();
 ``` 
 
 You can use all methods from \Joostvanveen\Litespeedcache\Cache, see [https://github.com/joostvanveen/litespeedcache/blob/master/README.md](https://github.com/joostvanveen/litespeedcache/blob/master/README.md) for documentation.
+
+Some examples:
 ```php
-// Example
+// Full options cache
 $excludedUris = [
     'checkout*',
     'admin*',
 ];
-LitespeedCache::setType('private')->setLifetime(120)->setExcludedUrls($excludedUris)->cache();
+$excludedQueryStrings = [
+    '*direction=*',
+];
+LitespeedCache::setType('private')->setLifetime(120)
+                                  ->addTags(['articles', 'en_GB'])
+                                  ->addVary('value=mysubdomain')
+                                  ->setExcludedUrls($excludedUris)
+                                  ->setExcludedQueryStrings($excludedQueryStrings)
+                                  ->cache();
+                                  
+// Purge cache using tags.
+LitespeedCache::addTags('articles')->purge();
 ```
 
 ### Config

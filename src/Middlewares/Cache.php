@@ -3,7 +3,7 @@
 namespace Joostvanveen\LaravelLitespeedcache\Middlewares;
 
 use Closure;
-use Joostvanveen\Litespeedcache\Cache as Litespeedcache;
+use Joostvanveen\LaravelLitespeedcache\Facades\LitespeedCache;
 
 class Cache
 {
@@ -22,10 +22,11 @@ class Cache
             return $next($request);
         }
 
-        (new Litespeedcache)->setEnabled(config('litespeedcache.defaults.enabled'))
-                            ->setType(config('litespeedcache.defaults.type'))
-                            ->setLifetime(config('litespeedcache.defaults.lifetime'))
-                            ->cache();
+        // New Joostvanveen\Litespeedcache\Cache, including default values from config
+        Litespeedcache::setEnabled(config('litespeedcache.defaults.enabled'))
+                      ->setType(config('litespeedcache.defaults.type'))
+                      ->setLifetime(config('litespeedcache.defaults.lifetime'))
+                      ->cache();
 
         return $next($request);
     }
