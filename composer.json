@@ -1,0 +1,41 @@
+{
+    "name": "joostvanveen/laravel-litespeedcache",
+    "description": "Laravel implementation of joostvanveen/litespeedcache.",
+    "type": "library",
+    "keywords": ["litespeed","cache","caching","laravel","fpc","full page cache","varnish","php"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joost van Veen",
+            "email": "joost@accentinteractive.nl"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "joostvanveen/litespeedcache": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5",
+        "orchestra/testbench": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Joostvanveen\\LaravelLitespeedcache\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Joostvanveen\\LaravelLitespeedcache\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Joostvanveen\\LaravelLitespeedcache\\LitespeedCacheServiceProvider"
+            ],
+            "aliases": {
+                "LitespeedCache": "Joostvanveen\\LaravelLitespeedcache\\Facades\\LitespeedCache"
+            }
+        }
+    }
+}
