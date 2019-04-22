@@ -1,6 +1,6 @@
 # joostvanveen/laravel-litespeedcache
 
-A Laravel wrapper for joostvanveen/litespeedcache. If you wish to use Litespeed Cache outside of Laravel check out [https://github.com/joostvanveen/litespeedcache](https://github.com/joostvanveen/litespeedcache) 
+A Laravel wrapper for joostvanveen/litespeedcache. If you wish to use Litespeed Cache outside of Laravel check out this framework agnostic [https://github.com/joostvanveen/litespeedcache](https://github.com/joostvanveen/litespeedcache) 
 
 ## Installation
 Require the package using composer:
