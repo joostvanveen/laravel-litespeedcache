@@ -32,7 +32,7 @@ Enable the Litespeed in your .htaccess file.
 
 ### Facade
 
-The package registers \Joostvanveen\Litespeedcache\Cache as a facade and sets default config values for `enabled`, `type` and `lifetime`.
+The package registers `\Joostvanveen\Litespeedcache\Cache` as a facade and sets default config values for `enabled`, `type` and `lifetime`.
 
 ```php
 use LitespeedCache;
@@ -43,7 +43,7 @@ use LitespeedCache;
 LitespeedCache::cache();
 ``` 
 
-You can use all methods from \Joostvanveen\Litespeedcache\Cache, see [https://github.com/joostvanveen/litespeedcache/blob/master/README.md](https://github.com/joostvanveen/litespeedcache/blob/master/README.md) for documentation.
+You can use all methods from `\Joostvanveen\Litespeedcache\Cache`, see [https://github.com/joostvanveen/litespeedcache/blob/master/README.md](https://github.com/joostvanveen/litespeedcache/blob/master/README.md) for full documentation.
 ```php
 // Example
 $excludedUris = [
@@ -56,7 +56,7 @@ LitespeedCache::setType('private')->setLifetime(120)->setExcludedUrls($excludedU
 ### Config
 Default values are set in a config file.
  
-To be able to adjust the configuration for this package, publish the configuration files to your project's /config folder like so:
+To be able to adjust the configuration for this package, publish the configuration files to your project's `/config` folder like so:
 ```php
 php artisan vendor:publish --provider="Joostvanveen\LaravelLitespeedcache\LitespeedCacheServiceProvider" --tag=config
 ```
@@ -74,7 +74,7 @@ By default, the package contains a middleware that caches all pages (except cli,
 
 You can find this middleware at `src/Middlewares/Cache.php`.
 
-If you want to use your won middelware, you can disable the default middleware by setting the config value `litespeedcache.defaults.use_middleware` to `false`
+If you want to use your own middleware, you can disable the default middleware by setting the config value `litespeedcache.defaults.use_middleware` to `false`
 
 ## joostvanveen/litespeedcache documentation
 
