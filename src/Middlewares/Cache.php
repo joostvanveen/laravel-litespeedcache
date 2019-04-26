@@ -18,10 +18,6 @@ class Cache
      */
     public function handle($request, Closure $next)
     {
-        if (config('litespeedcache.defaults.use_middleware') == false) {
-            return $next($request);
-        }
-
         // New Joostvanveen\Litespeedcache\Cache, including default values from config
         Litespeedcache::setEnabled(config('litespeedcache.defaults.enabled'))
                       ->setType(config('litespeedcache.defaults.type'))

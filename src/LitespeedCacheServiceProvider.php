@@ -11,8 +11,13 @@ class LitespeedCacheServiceProvider extends ServiceProvider
 
     public function boot(\Illuminate\Routing\Router $router, \Illuminate\Contracts\Http\Kernel $kernel)
     {
-        $router->aliasMiddleware('litespeedcache', CacheMiddleware::class);
+        // Add default middleware if enabled
+        if (config('litespeedcache.defaults.use_middleware')) {
+            $router->aliasMiddleware('litespeedcache', CacheMiddleware::class);
+            $kernel->pushMiddleware(CacheMiddleware::class);
+        }
 
+        // Publish config settings
         $this->publishes([
             __DIR__ . '/../config/litespeedcache.php' => config_path('litespeedcache.php'),
         ], 'config');
@@ -22,8 +27,8 @@ class LitespeedCacheServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/litespeedcache.php', 'litespeedcache');
 
+        // Bind new Joostvanveen\Litespeedcache\Cache, including default values from config
         $this->app->bind('litespeedcache', function () {
-            // New Joostvanveen\Litespeedcache\Cache, including default values from config
             return (new Litespeedcache)
                 ->setEnabled(config('litespeedcache.defaults.enabled'))
                 ->setType(config('litespeedcache.defaults.type'))

@@ -30,6 +30,29 @@ Enable the Litespeed in your .htaccess file.
 
 ## Usage
 
+This package adds a `LitespeedCache` cache facade for easy use and sets middleware that automatically caches all requests, according to the config settings.
+
+You can set which URLs (for instance any `adminconsole*`) and query strings not to cache in config.
+If you want to preview a page without cache, simply add `?cache_bypass=1` to a URL, or set a `cache_bypass` cookie with a vale of 1.
+
+If you want to set your own middleware, you can set the package to **not** use the default middleware.
+ 
+### Configuration
+To be able to adjust the configuration for this package, publish the configuration files to your project's `/config` folder like so:
+```php
+php artisan vendor:publish --provider="Joostvanveen\LaravelLitespeedcache\LitespeedCacheServiceProvider" --tag=config
+```
+
+The config file adds the following settings to your Laravel configuration:
+```php
+config('litespeedcache.defaults.enabled') // true
+config('litespeedcache.defaults.use_middleware') // true
+config('litespeedcache.defaults.type') // 'public'
+config('litespeedcache.defaults.lifetime') // 240 minutes
+config('litespeedcache.defaults.excludedUris') // Array of URIs that should not be cached, can contain wildcards like '/admin*'
+config('litespeedcache.defaults.excludedQueryStrings') // Array of query strings that should not be cached, can contain wildcards like '*utm_source=*'
+```
+
 ### Facade
 
 The package registers `\Joostvanveen\Litespeedcache\Cache` as a facade and sets default config values for 
@@ -73,24 +96,6 @@ LitespeedCache::setType('private')->setLifetime(120)
                                   
 // Purge cache using tags.
 LitespeedCache::addTags('articles')->purge();
-```
-
-### Config
-Default values are set in a config file.
- 
-To be able to adjust the configuration for this package, publish the configuration files to your project's `/config` folder like so:
-```php
-php artisan vendor:publish --provider="Joostvanveen\LaravelLitespeedcache\LitespeedCacheServiceProvider" --tag=config
-```
-
-The config file adds the following settings to your Laravel configuration:
-```php
-config('litespeedcache.defaults.enabled') // true
-config('litespeedcache.defaults.use_middleware') // true
-config('litespeedcache.defaults.type') // 'public'
-config('litespeedcache.defaults.lifetime') // 240 minutes
-config('litespeedcache.defaults.excludedUris') // Array of URIs that should not be cached, can contain wildcards like '/admin*'
-config('litespeedcache.defaults.excludedQueryStrings') // Array of query strings that should not be cached, can contain wildcards like '*utm_source=*'
 ```
 
 ### Middleware

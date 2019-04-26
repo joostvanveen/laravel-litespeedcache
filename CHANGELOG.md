@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0 2019-04-26
+### Changed
+- Fixed bug where default middleware was not loaded.
+
 ## 0.2.0 2019-04-23
 ### Added
 - Added config('litespeedcache.defaults.excludedUris') and config('litespeedcache.defaults.excludedQueryStrings') to config
