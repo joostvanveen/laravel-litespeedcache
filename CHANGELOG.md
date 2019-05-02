@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 2019-05-02
+### Changed
+- Updated README.
+
 ## 1.0.0 2019-04-26
 ### Changed
 - Fixed bug where default middleware was not loaded.

@@ -96,6 +96,9 @@ LitespeedCache::setType('private')->setLifetime(120)
                                   
 // Purge cache using tags.
 LitespeedCache::addTags('articles')->purge();
+
+// If the lifetime is set to 0 the page will not be cached
+(new Cache)->setEnabled(true)->setLifetime(0)->cache();
 ```
 
 ### Middleware
