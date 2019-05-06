@@ -184,7 +184,7 @@ This package provides two ways to use csrf tokens in you pages as an ESI block. 
 ESI block will be replaced by the actual, uncached csrf token. This way you can have a fully cached paged, but 
 **with** a uncached token.
 
-Use the following code to include a hidden field in your form instead of `csrf_field()`. The 'litespeedcache.routes.field' route
+Use the following code to include a hidden field in a form on a cached page, instead of `csrf_field()`. The 'litespeedcache.routes.field' route
 is part of this package an will return a hidden field with csrf token. Use the ESI block in your page like so: 
 ```php
 <esi:include src="{{ route('litespeedcache.csrf.field') }}" />
@@ -204,7 +204,7 @@ Your email: <input type="email" name="email" required><br>
 </form>
 ```
 
-Use the following code to include a csrf token in your page instead of `csrf_token()`. The 'litespeedcache.routes.token' route
+Use the following code to include a csrf token on a cached page, instead of `csrf_token()`. The 'litespeedcache.routes.token' route
 is part of this package an will return just a csrf token. Use the ESI block in your page like so:
 ```php
 <esi:include src="{{ route('litespeedcache.csrf.token') }}" />

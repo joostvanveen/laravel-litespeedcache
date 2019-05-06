@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0 2019-05-06
+### Added
+- Added uncached ESI routes to return csrf_token() and csrf_field()
+- Updated README
+
 ## 1.0.1 2019-05-02
 ### Changed
 - Updated README.
