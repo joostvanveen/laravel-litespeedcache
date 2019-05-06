@@ -6,27 +6,21 @@ use LitespeedCache;
 
 class UnitTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function config_contains_enabled()
     {
         $config = include(__DIR__ . '/../config/litespeedcache.php');
         $this->assertArrayHasKey('enabled', $config['defaults']);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function config_contains_type()
     {
         $config = include(__DIR__ . '/../config/litespeedcache.php');
         $this->assertArrayHasKey('type', $config['defaults']);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function config_contains_lifetime()
     {
         $config = include(__DIR__ . '/../config/litespeedcache.php');

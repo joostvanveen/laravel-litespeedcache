@@ -7,10 +7,7 @@ use LitespeedCache;
 class FeatureTest extends TestCase
 {
 
-    /**
-     * @test
-     * @runInSeparateProcess
-     */
+    /** @test */
     public function it_can_cache()
     {
         LitespeedCache::setUnitTestMode()
@@ -25,10 +22,7 @@ class FeatureTest extends TestCase
         $this->assertTrue(in_array('X-LiteSpeed-Cache-Control: private, max-age=60', $headers));
     }
 
-    /**
-     * @test
-     * @runInSeparateProcess
-     */
+    /** @test */
     public function it_uses_config_values()
     {
         $config = include(__DIR__ . '/../config/litespeedcache.php');
