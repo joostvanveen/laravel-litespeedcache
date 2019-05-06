@@ -170,6 +170,65 @@ class LitespeedCache
 }
 ```
 
+## Cache and csrf tokens in form requests
+Laravel has built in security to guard against csrf attacks, using a csrf token. A token check is done on every POST request. 
+
+Typically, you provide the csrf token as a hidden field in a form, using `csrf_field()` or in a POST ajax request, 
+using something like `$.post(route('my.route'), $('#form').serialize() + "&_token={{ csrf_token() }});` 
+
+This poses a problem when used with a full page cache like Litespeed Cache or Varnish. The csrf is unique and should 
+not be stored in cache. If it is you will be posting a cached csrf token instead of a fresh one, resulting in a 'This page has expired' error on doing a POST request. However, you **do** 
+want to store the rest of the page in cache. You need some way to do hole punching in your cached page. ESI to the rescue.
+
+This package provides two ways to use csrf tokens in you pages as an ESI block. On constructing the cached page, the 
+ESI block will be replaced by the actual, uncached csrf token. This way you can have a fully cached paged, but 
+**with** a uncached token.
+
+Use the following code to include a hidden field in your form instead of `csrf_field()`. The 'litespeedcache.routes.field' route
+is part of this package an will return a hidden field with csrf token. Use the ESI block in your page like so: 
+```php
+<esi:include src="{{ route('litespeedcache.routes.field') }}" />
+``` 
+
+This ESI block will be replaced with the following string (where xxxx is a csrf token):
+```php
+<input type="hidden" name="_token" value="xxxx">
+```
+
+Here's a complete example:
+```php
+<form action="/example-url" method="POST">
+<esi:include src="{{ route('litespeedcache.routes.field') }}" />
+Your email: <input type="email" name="email" required><br>
+<input type="submit">
+</form>
+```
+
+Use the following code to include a csrf token in your page instead of `csrf_token()`. The 'litespeedcache.routes.token' route
+is part of this package an will return just a csrf token. Use the ESI block in your page like so:
+```php
+<esi:include src="{{ route('litespeedcache.routes.token') }}" />
+``` 
+
+This ESI block will be replaced with the following string (where xxxx is a csrf token):
+```php
+xxxx
+```
+
+Here's a complete example:
+```php
+$.post(
+    '/example-url', 
+    { 
+        '_token' : '<esi:include src="{{ route('litespeedcache.routes.token') }}" />', 
+        'data' : $(this).serialize() 
+    }, 
+    function(data) {
+        // Do something
+    }
+);
+```
+
 ## joostvanveen/litespeedcache documentation
 
 You can find the Litespeed Cache documentation here [https://github.com/joostvanveen/litespeedcache/blob/master/README.md](https://github.com/joostvanveen/litespeedcache/blob/master/README.md)
