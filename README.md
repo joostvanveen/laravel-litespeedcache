@@ -187,7 +187,7 @@ ESI block will be replaced by the actual, uncached csrf token. This way you can 
 Use the following code to include a hidden field in your form instead of `csrf_field()`. The 'litespeedcache.routes.field' route
 is part of this package an will return a hidden field with csrf token. Use the ESI block in your page like so: 
 ```php
-<esi:include src="{{ route('litespeedcache.routes.field') }}" />
+<esi:include src="{{ route('litespeedcache.csrf.field') }}" />
 ``` 
 
 This ESI block will be replaced with the following string (where xxxx is a csrf token):
@@ -198,7 +198,7 @@ This ESI block will be replaced with the following string (where xxxx is a csrf 
 Here's a complete example:
 ```php
 <form action="/example-url" method="POST">
-<esi:include src="{{ route('litespeedcache.routes.field') }}" />
+<esi:include src="{{ route('litespeedcache.csrf.field') }}" />
 Your email: <input type="email" name="email" required><br>
 <input type="submit">
 </form>
@@ -207,7 +207,7 @@ Your email: <input type="email" name="email" required><br>
 Use the following code to include a csrf token in your page instead of `csrf_token()`. The 'litespeedcache.routes.token' route
 is part of this package an will return just a csrf token. Use the ESI block in your page like so:
 ```php
-<esi:include src="{{ route('litespeedcache.routes.token') }}" />
+<esi:include src="{{ route('litespeedcache.csrf.token') }}" />
 ``` 
 
 This ESI block will be replaced with the following string (where xxxx is a csrf token):
@@ -220,7 +220,7 @@ Here's a complete example:
 $.post(
     '/example-url', 
     { 
-        '_token' : '<esi:include src="{{ route('litespeedcache.routes.token') }}" />', 
+        '_token' : '<esi:include src="{{ route('litespeedcache.csrf.token') }}" />', 
         'data' : $(this).serialize() 
     }, 
     function(data) {
