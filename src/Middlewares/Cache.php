@@ -20,6 +20,7 @@ class Cache
     {
         // New Joostvanveen\Litespeedcache\Cache, including default values from config
         Litespeedcache::setEnabled(config('litespeedcache.defaults.enabled'))
+                      ->setEsiEnabled(config('litespeedcache.defaults.esiEnabled'))
                       ->setType(config('litespeedcache.defaults.type'))
                       ->setLifetime(config('litespeedcache.defaults.lifetime'))
                       ->setExcludedUrls(config('litespeedcache.defaults.excludedUris'))

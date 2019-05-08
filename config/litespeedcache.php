@@ -6,6 +6,7 @@ $csrfFieldUri = '/litespeedcache/csrf_field';
 return [
     'defaults' => [
         'enabled' => true, // Litespeedcache headers are sent
+        'esiEnabled' => true, // Enable ESI
         'use_middleware' => true, // Litespeed Cache Middleware is active
         'type' => 'public', // Default cache type
         'lifetime' => 240, // Default TTL for cache in minutes
