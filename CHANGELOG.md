@@ -1,6 +1,11 @@
 # Changelog
 
+## 1.1.2 2019-05-08
+### Changed
+- Fixed accidental local include of joostvanveen/litespeedcache
+
 ## 1.1.1 2019-05-08
+Do not use - contains bug
 ### Added
 - Added esiEnabled to config
 
