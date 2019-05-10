@@ -2,7 +2,6 @@
 
 namespace Joostvanveen\LaravelLitespeedcache;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Joostvanveen\LaravelLitespeedcache\Middlewares\Cache as CacheMiddleware;
 use Joostvanveen\Litespeedcache\Cache as Litespeedcache;
@@ -24,11 +23,13 @@ class LitespeedCacheServiceProvider extends ServiceProvider
             __DIR__ . '/../config/litespeedcache.php' => config_path('litespeedcache.php'),
         ], 'config');
 
-        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
     }
 
     public function register()
     {
+        require_once(__DIR__ . '/Helpers/litespeedHelpers.php');
+
         $this->mergeConfigFrom(__DIR__ . '/../config/litespeedcache.php', 'litespeedcache');
 
         // Bind new Joostvanveen\Litespeedcache\Cache, including default values from config

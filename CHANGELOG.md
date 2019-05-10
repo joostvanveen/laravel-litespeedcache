@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 2019-05-10
+### Changed
+- Added helpers getLitespeedCsrfField() and getLitespeedCsrfToken() that return the correct string based on whether ESI is enabled.
+
 ## 1.1.2 2019-05-08
 ### Changed
 - Fixed accidental local include of joostvanveen/litespeedcache

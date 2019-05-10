@@ -185,49 +185,42 @@ ESI block will be replaced by the actual, uncached csrf token. This way you can 
 **with** a uncached token.
 
 Use the following code to include a hidden field in a form on a cached page, instead of `csrf_field()`. The 'litespeedcache.routes.field' route
-is part of this package an will return a hidden field with csrf token. Use the ESI block in your page like so: 
-```php
-<esi:include src="{{ route('litespeedcache.csrf.field') }}" />
-``` 
+is part of this package an will return a hidden field with csrf token. 
 
-This ESI block will be replaced with the following string (where xxxx is a csrf token):
+### ESI helper functions
+This package comes with an easy helper functions to display an ESI block in your form.
 ```php
-<input type="hidden" name="_token" value="xxxx">
+{!! getLitespeedCsrfField() !!}
 ```
 
-Here's a complete example:
+This will display the proper ESI block if ESI is enabled, and a regular `crsf_field()` if ESI is **not** enabled.
 ```php
-<form action="/example-url" method="POST">
+// With esi enabled
 <esi:include src="{{ route('litespeedcache.csrf.field') }}" />
-Your email: <input type="email" name="email" required><br>
-<input type="submit">
-</form>
+
+// With esi disabled 
+<input type="hidden" name="_token" value="TGZUHk9BSg6QTH1knqPLPXB20EHKLmqEZSt4f3Uk">
 ```
 
-Use the following code to include a csrf token on a cached page, instead of `csrf_token()`. The 'litespeedcache.routes.token' route
-is part of this package an will return just a csrf token. Use the ESI block in your page like so:
+Sometimes you need just the token, for instance for ajax POST requests. That's why there is also a special helper function that returns just the token. 
 ```php
+{{ getLitespeedCsrfToken() }}
+```
+
+This will display the proper ESI block if ESI is enabled, and a regular `crsf_token()` if ESI is **not** enabled.
+```php
+// With esi enabled
+<esi:include src="{{ route('litespeedcache.csrf.token') }}" />
+
+// With esi disabled 
+TGZUHk9BSg6QTH1knqPLPXB20EHKLmqEZSt4f3Uk
+```
+
+Of course, you are free to manually code the ESI blocks into your forms as well.
+```php
+<esi:include src="{{ route('litespeedcache.csrf.field') }}" />
 <esi:include src="{{ route('litespeedcache.csrf.token') }}" />
 ``` 
-
-This ESI block will be replaced with the following string (where xxxx is a csrf token):
-```php
-xxxx
-```
-
-Here's a complete example:
-```php
-$.post(
-    '/example-url', 
-    { 
-        '_token' : '<esi:include src="{{ route('litespeedcache.csrf.token') }}" />', 
-        'data' : $(this).serialize() 
-    }, 
-    function(data) {
-        // Do something
-    }
-);
-```
 
 ## joostvanveen/litespeedcache documentation
 
