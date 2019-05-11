@@ -12,6 +12,7 @@ class FeatureTest extends TestCase
     {
         LitespeedCache::setUnitTestMode()
                       ->setEnabled(true)
+                      ->setEsiEnabled(false)
                       ->setType('private')
                       ->setLifetime(60)
                       ->setExcludedUrls([])
@@ -30,6 +31,6 @@ class FeatureTest extends TestCase
         LitespeedCache::setUnitTestMode()->cache();
 
         $headers = $this->getHeaders();
-        $this->assertTrue(in_array('X-LiteSpeed-Cache-Control: ' . $config['defaults']['type'] . ', max-age=' . $config['defaults']['lifetime'] . '', $headers));
+        $this->assertTrue(in_array('X-LiteSpeed-Cache-Control: ' . $config['defaults']['type'] . ', esi=on, max-age=' . $config['defaults']['lifetime'] . '', $headers));
     }
 }

@@ -33,9 +33,10 @@ class LitespeedCacheServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/litespeedcache.php', 'litespeedcache');
 
         // Bind new Joostvanveen\Litespeedcache\Cache, including default values from config
-        $this->app->bind('litespeedcache', function () {
+        $this->app->singleton('litespeedcache', function () {
             return (new Litespeedcache)
                 ->setEnabled(config('litespeedcache.defaults.enabled'))
+                ->setEsiEnabled(config('litespeedcache.defaults.esiEnabled'))
                 ->setType(config('litespeedcache.defaults.type'))
                 ->setLifetime(config('litespeedcache.defaults.lifetime'))
                 ->setExcludedUrls(config('litespeedcache.defaults.excludedUris'))
