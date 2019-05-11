@@ -7,7 +7,7 @@
  */
 function getLitespeedCsrfField()
 {
-    if (LitespeedCache::getEnabled() == false) {
+    if ( ! LitespeedCache::shouldCache() || LitespeedCache::getEsiEnabled() == false) {
         return csrf_field();
     }
 
@@ -21,7 +21,7 @@ function getLitespeedCsrfField()
  */
 function getLitespeedCsrfToken()
 {
-    if (LitespeedCache::getEnabled() == false) {
+    if ( ! LitespeedCache::shouldCache() || LitespeedCache::getEsiEnabled() == false) {
         return csrf_token();
     }
 
