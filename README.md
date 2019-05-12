@@ -222,7 +222,21 @@ Of course, you are free to manually code the ESI blocks into your forms as well.
 ```php
 <esi:include src="{{ route('litespeedcache.csrf.field') }}" />
 <esi:include src="{{ route('litespeedcache.csrf.token') }}" />
-``` 
+```  
+
+### ESI not supported by your server?
+Not all Litespeed servers support ESI. If you are on a Litespeed server that does not support ESI, you can insert an uncached token into your form using ajax, since ajax requests are never cached by joostvanveen/litespeecache.
+
+```html
+<script>
+    $(function() {
+        // Populate all csrf tokens by ajax using an uncached route 
+        $.get('{{ route('litespeedcache.csrf.token') }}', function(data) {
+            $('input[name="_token"]').val(data.token);
+        });
+    });
+</script>
+```
 
 ## joostvanveen/litespeedcache documentation
 
