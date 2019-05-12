@@ -1,3 +1,5 @@
+![coverage](https://img.shields.io/badge/coverage-100%25-yellowgreen.svg?cacheSeconds=3600)
+
 # joostvanveen/laravel-litespeedcache
 
 A Laravel wrapper for joostvanveen/litespeedcache. If you wish to use Litespeed Cache outside of Laravel check out this framework agnostic [https://github.com/joostvanveen/litespeedcache](https://github.com/joostvanveen/litespeedcache) 
