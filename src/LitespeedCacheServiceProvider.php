@@ -38,6 +38,7 @@ class LitespeedCacheServiceProvider extends ServiceProvider
                 ->setEnabled(config('litespeedcache.defaults.enabled'))
                 ->setEsiEnabled(config('litespeedcache.defaults.esiEnabled'))
                 ->setType(config('litespeedcache.defaults.type'))
+                ->setEnableAjaxCache(config('litespeedcache.defaults.enable_ajax_cache'))
                 ->setLifetime(config('litespeedcache.defaults.lifetime'))
                 ->setExcludedUrls(config('litespeedcache.defaults.excludedUris'))
                 ->setExcludedQueryStrings(config('litespeedcache.defaults.excludedQueryStrings'));
