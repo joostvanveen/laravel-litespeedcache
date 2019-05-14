@@ -8,6 +8,7 @@ return [
         'enabled' => true, // Litespeedcache headers are sent
         'esiEnabled' => true, // Enable ESI
         'enable_ajax_cache' => false, // Whether or not to cache ajax calls
+        'cache_http_verbs' => ['GET', 'HEAD'], // Request methods that should be cached
         'use_middleware' => true, // Litespeed Cache Middleware is active
         'type' => 'public', // Default cache type
         'lifetime' => 240, // Default TTL for cache in minutes
