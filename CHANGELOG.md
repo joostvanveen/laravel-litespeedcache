@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0 2019-05-14
+### Added
+- Added cache configuration for ajax and HTTP request types to README
+- Made configurable what HTTP request types are cached
+- Made configurable whether ajax calls are cached
+
 ## 1.2.1 2019-05-11
 ### Changed
 - Bind LitespeedCache as singleton

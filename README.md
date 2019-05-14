@@ -47,12 +47,35 @@ php artisan vendor:publish --provider="Joostvanveen\LaravelLitespeedcache\Litesp
 
 The config file adds the following settings to your Laravel configuration:
 ```php
-config('litespeedcache.defaults.enabled') // true
-config('litespeedcache.defaults.use_middleware') // true
-config('litespeedcache.defaults.type') // 'public'
-config('litespeedcache.defaults.lifetime') // 240 minutes
-config('litespeedcache.defaults.excludedUris') // Array of URIs that should not be cached, can contain wildcards like '/admin*'
-config('litespeedcache.defaults.excludedQueryStrings') // Array of query strings that should not be cached, can contain wildcards like '*utm_source=*'
+// Cache is enabled
+config(['litespeedcache.defaults.enabled' => true]);
+
+// ESI is enabled
+config(['litespeedcache.defaults.esiEnabled' => true]);
+
+// Whether or not to cache ajax calls
+config(['litespeedcache.defaults.enable_ajax_cache' => false]);
+
+// Array of request methods that should be cached
+config(['litespeedcache.defaults.cache_http_verbs' => ['GET', 'HEAD']]);
+
+// Whether or not to use the deafult middleware that comes with this package
+config(['litespeedcache.defaults.use_middleware' => true]);
+
+// Default cache type
+config(['litespeedcache.defaults.type' => 'public']);
+
+// Default TTL for cache in minutes
+config(['litespeedcache.defaults.lifetime' => 240]);
+
+// Array of URIs that should not be cached, can contain wildcards like '/admin*'
+config(['litespeedcache.defaults.excludedUris' => [$csrfTokenUri . '*', $csrfFieldUri . '*']]);
+
+// Array of query strings that should not be cached, can contain wildcards like '*utm_source=*'
+config(['litespeedcache.defaults.excludedQueryStrings' => []]);
+
+// Array of routes for this package 
+config(['litespeedcache.routes' => ['token' => $csrfTokenUri, 'field' => $csrfFieldUri] ]);
 ```
 
 ### Facade
@@ -104,7 +127,7 @@ LitespeedCache::addTags('articles')->purge();
 ```
 
 ### Middleware
-By default, the package contains a middleware that caches all pages (except cli, ajax andd http verbs other than GET and HEAD).
+By default, the package contains a middleware that caches all pages (except cli).
 
 You can find this middleware at `src/Middlewares/Cache.php`.
 
